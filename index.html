@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Simple To-Do</title>
+  <style>
+    body{
+      background-color: #222;
+      color: white;
+      font-family: Arial, Sans-Serif;
+      text-align: center;
+    }
+    input{
+      height: 20px;
+      border-radius: 5px;
+    }
+    #btn{
+      background-color: #e252ef;
+      color: white;
+      height: 25px;
+      width: 100px;
+      border: none;
+      border-radius: 3px;
+      padding: 0;
+    }
+    li{
+      text-align: left;
+      display: flex;
+      gap: 5px;
+      margin-top:5px ;
+    }
+    button{
+      height: 20px;
+      border: none;
+      background-color: red;
+      color: white;
+      border-radius: 5px;
+    }
+    p{
+      color: whitesmoke;
+      font-size: 15px;
+      font-family: Times New Roman;
+    }
+    span{
+     flex: 0.85;
+     overflow-wrap: break-word;
+    }
+    
+  </style>
+</head>
+<body>
+  <h1>Simple To-Do</h1>
+  <input id="task-input" type="text" placeholder="Enter your task here...">
+  <button id="btn">Add Task</button>
+  <div id="action">
+  <ul id="list"></ul>
+  <hr>
+  <p>• You don't have more Task •</p>
+  </div>
+  
+  <!--JavaScript-->
+  <script>
+    //Selector
+    const btn = document.getElementById("btn")
+    const list = document.getElementById("list")
+    let taskInput = document.getElementById("task-input")
+    
+    //Events
+    btn.addEventListener('click', function(){
+      if (taskInput.value === ""){
+        alert("Please Enter a task first.")
+      } else {
+      const li = document.createElement("li")
+      const taskSpan = document.createElement("span")
+      taskSpan.textContent = taskInput.value;
+      li.appendChild(taskSpan);
+      list.appendChild(li)
+      taskInput.value = ""
+      
+      // Task Edit Button
+      const editBtn = document.createElement("button");
+      editBtn.textContent = "Edit";
+      li.appendChild(editBtn);
+      editBtn.addEventListener('click', function(){
+       let newTask = prompt("Edit your Task");
+       if (newTask === null){
+         return;
+       }
+       if (newTask.trim() === ""){
+         alert("This should not be empty.")
+         prompt("Enter your task")
+         return;
+       }
+       taskSpan.textContent = newTask;
+      })
+      
+      //Task Remove Button
+      const removeBtn = document.createElement("button")
+      removeBtn.textContent = "Remove"
+      li.appendChild(removeBtn)
+      removeBtn.addEventListener('click', function(){
+        list.removeChild(li)
+      })
+    }})
+  </script>
+</body>
+</html>
